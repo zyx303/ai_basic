@@ -201,3 +201,27 @@ class SimpleResNet(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
+# 修改下面的`SimpleCNN`代码，添加一个额外的卷积层和BatchNorm。新的卷积层应该在第二个池化层之后，卷积核数量为64，卷积核大小为3x3。
+class EnhancedCNN(nn.Module):
+    def __init__(self):
+        super(EnhancedCNN, self).__init__()
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
+        # 在这里添加一个新的卷积层、BatchNorm和相应的池化层
+        self.conv3 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+        self.bn3 = nn.BatchNorm2d(64)
+
+        self.pool = nn.MaxPool2d(2, 2)
+        self.flatten = nn.Flatten()
+        # 修改全连接层以适应新的特征图尺寸
+        self.fc1 = nn.Linear(64 * 8 * 8, 128)
+        self.fc2 = nn.Linear(128, 10)
+
+        self.relu = nn.ReLU()
+    def forward(self, x):
+        # 实现包含新卷积层的前向传播
+        x = self.pool(self.relu(self.conv1(x)))
+        x = self.pool(self.relu(self.conv2(x)))
+        x = self.pool(self.relu(self.bn3(self.conv3(x))))
+
+        return x
