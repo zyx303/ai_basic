@@ -154,24 +154,27 @@ class ResidualMLP(nn.Module):
 class TwoLayerMLP(nn.Module):
     def __init__(self, input_dim=3*32*32):
         super(TwoLayerMLP, self).__init__()
-        self.flatten = nn.Flatten()      
+        self.flatten = nn.Flatten()      #展平，把输入的多维数据展平为一维数据
         # 使用nn.Linear, nn.BatchNorm1d, nn.ReLU和nn.Dropout实现两个隐藏层
         self.mlp = nn.Sequential(
+            # 第一个隐藏层
             nn.Linear(input_dim, 128),
             nn.BatchNorm1d(128),
             nn.ReLU(),
             nn.Dropout(0.3),
+            #第二个隐藏层
             nn.Linear(128, 64),
             nn.BatchNorm1d(64),
             nn.ReLU(),
             nn.Dropout(0.3),
-            nn.Linear(64, 10)
+            nn.Linear(64, 10)#输出层
         )
 
         
     def forward(self, x):
-        x = self.flatten(x)      
+        x = self.flatten(x)      #展平，把输入的多维数据展平为一维数据
         # 实现前向传播
         x = self.mlp(x)
         
         return x
+

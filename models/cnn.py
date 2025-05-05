@@ -205,23 +205,25 @@ class SimpleResNet(nn.Module):
 class EnhancedCNN(nn.Module):
     def __init__(self):
         super(EnhancedCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1) # 输入3通道，输出16通道的卷积层
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1) # 输入16通道，输出32通道的卷积层
         # 在这里添加一个新的卷积层、BatchNorm和相应的池化层
-        self.conv3 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.bn3 = nn.BatchNorm2d(64)
+        self.conv3 = nn.Conv2d(32, 64, kernel_size=3, padding=1)# 输入32通道，输出64通道的卷积层
+        self.bn3 = nn.BatchNorm2d(64)# 标准化层
 
-        self.pool = nn.MaxPool2d(2, 2)
-        self.flatten = nn.Flatten()
+        self.pool = nn.MaxPool2d(2, 2) # 池化层
+        self.flatten = nn.Flatten()# 展平层
         # 修改全连接层以适应新的特征图尺寸
-        self.fc1 = nn.Linear(64 * 8 * 8, 128)
-        self.fc2 = nn.Linear(128, 10)
+        self.fc1 = nn.Linear(64 * 4 * 4, 128)
+        self.fc2 = nn.Linear(128, 10)# 输出层
 
         self.relu = nn.ReLU()
     def forward(self, x):
         # 实现包含新卷积层的前向传播
-        x = self.pool(self.relu(self.conv1(x)))
-        x = self.pool(self.relu(self.conv2(x)))
-        x = self.pool(self.relu(self.bn3(self.conv3(x))))
-
+        x = self.pool(self.relu(self.conv1(x)))# 输出大小: 16x16x16
+        x = self.pool(self.relu(self.conv2(x)))# 输出大小: 8x8x32
+        x = self.pool(self.relu(self.bn3(self.conv3(x))))# 输出大小: 4x4x64
+        x = self.flatten(x)# 展平
+        x = self.relu(self.fc1(x)) # 全连接层
+        x = self.fc2(x)# 输出层
         return x
