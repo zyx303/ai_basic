@@ -6,11 +6,13 @@ import torchvision
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import numpy as np
+import warnings 
 import os
 
 from models import RotationNet, generate_rotations
 from utils.data_loader import load_cifar10
 from utils.train_utils import train_model, evaluate_model
+from utils.train_utils import plot_training_history
 
 # 创建自监督数据集
 class RotationDataset(Dataset):
@@ -32,7 +34,7 @@ class RotationDataset(Dataset):
 def main():
     # 设置参数
     batch_size = 128
-    epochs = 10
+    epochs = 20
     learning_rate = 0.001
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     save_directory = './checkpoints/self_supervised'
@@ -65,38 +67,17 @@ def main():
     
     # 训练模型
     print("开始自监督预训练...")
-    history = train_model(
+    trained_model, history = train_model(
         model, ss_train_loader, ss_valid_loader, criterion, optimizer, scheduler,
         num_epochs=epochs, device=device, save_dir=save_directory
     )
     
     
     # 可视化训练历史
-    plt.figure(figsize=(12, 4))
-    plt.subplot(1, 2, 1)
-    plt.plot(history['train_loss'], label='Train Loss')
-    plt.plot(history['val_loss'], label='Validation Loss')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.legend()
-    
-    plt.subplot(1, 2, 2)
-    plt.plot(history['train_acc'], label='Train Accuracy')
-    plt.plot(history['val_acc'], label='Validation Accuracy')
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy')
-    plt.legend()
-    
-    plt.savefig(f"{save_directory}/self_supervised_training_history.png")
-    
-    # 评估旋转预测任务的性能
-    print("\n评估自监督任务性能:")
-    test_dataset = RotationDataset(test_loader.dataset)
-    test_loader_ss = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
-    test_loss, test_acc = evaluate_model(model, test_loader_ss, criterion, device)
-    print(f"旋转预测测试准确率: {test_acc:.4f}")
-
+    plot_training_history(history, title="Self-Supervised Training History")
 
 
 if __name__ == "__main__":
+    warnings.filterwarnings("ignore")
+    warnings.filterwarnings("ignore", category=FutureWarning)
     main()

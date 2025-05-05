@@ -1,0 +1,951 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left: 0.25em solid rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+
+:root {
+  /* == 字体设置 == */
+  /* 基准字体 */
+  /* 备选：Times, "Times New Roman" */
+  --base-Latin-font: "Latin Modern Roman", "Latin Modern Roman 10", Times;
+  --base-Chinese-font: "家族宋", "宋体-简", "华文宋体", "Noto Serif CJK SC";
+  --base-font-size: 9.5pt;
+  /* 引言字体 */
+  --quote-font: "Latin Modern Roman", "Latin Modern Roman 10", Times,
+    "Times New Roman", "华文仿宋";
+  /* em单位为一个正文字符（--base-font-size）大小，
+  例如，如果您设置 --base-font-size 为 9.5pt，那么 1.05em = 1.05*9.5pt ≈ 10pt。下面的标题字体等设置也遵循该规则。
+  这样，您就可以仅通过调整基准字体大小，而动态对其他元素大小做出调整。
+  当然，您也可以直接设置以pt或px为单位的数值，将元素的大小固定下来，如 --quote-font-size: 10pt; */
+  --quote-font-size: 1.05em;
+  /* 代码字体（代码中的中文会调用 ui-font） */
+  /* "Courier New" 从 Windows 3.1 起成为 Windows 官方提供的字体 */
+  /* "Consolas" 从 Windows Vista 起成为 Windows 官方提供的字体 */
+  --code-font: "Latin Modern Mono", "Latin Modern Mono 10", "Consolas", "Courier New";
+  /* 侧边栏字体 */
+  --ui-font: "阿里巴巴普惠体 2.0", "微软雅黑";
+  /* source mode 字体 */
+  /* 默认调用 code-font 和 ui-font */
+  --sourceMode-font: "SF Mono", "阿里巴巴普惠体 2.0", "微软雅黑";
+  /* 目录字体 */
+  /* 默认调用 base-font */
+  --toc-font: "";
+  /* 默认调用 base-font-size */
+  --toc-font-size: "";
+  /* 公式字体 */
+  --math-font-size: 1em;
+  /* 表格字体 */
+  /* 默认调用 heading-font */
+  --table-title-font: "";
+  /* 默认调用 base-font */
+  --table-font: "";
+  /* 标题字体（总设置） */
+  --heading-Latin-font: var(--base-Latin-font);
+  --heading-Chinese-font: "华文黑体";
+  /* 标题字体分别设置 */
+  /* 大标题（h1）字体 */
+  --title-Chinese-font: "华文黑体";
+  --title-font-size: 1.9em;
+  /* h2字体 */
+  --h2-Chinese-font: "华文黑体";
+  --h2-font-size: 1.65em;
+  /* h3字体 */
+  --h3-Chinese-font: "华文黑体";
+  --h3-font-size: 1.4em;
+  /* h4字体 */
+  --h4-Chinese-font: "华文楷体";
+  --h4-font-size: 1.2em;
+  /* h5字体 */
+  --h5-Chinese-font: "华文仿宋";
+  --h5-font-size: 1.05em;
+  /* h6字体 */
+  --h6-Chinese-font: "华文仿宋";
+  --h6-font-size: 1.00em;
+  /* 粗体样式设置 */
+  /* 加粗风格时使用的字重；400等同于 normal，700等同于 bold，900等同于 heavy */
+  --strong-weight: 900;
+  /* 基础行距 */
+  --base-line-height: 1.618em;
+  /* == 页面设置 == */
+  /* 打印页边距 */
+  --set-margin: 1.8cm 2cm 1.2cm 2cm !important;
+  /* == 控制设置 == */
+  /* 目录中是否显示一级标题 */
+  /* --toc-show-title: none; */
+  /* == 颜色设置 == */
+  /* 超链接颜色 */
+  --link-color-light: #2E67D3;
+  --link-color-dark: #8bb1f9;
+}
+
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+  /* counter-reset: tableHead 0 imgHead 0; */
+}
+
+@media print {
+  #write {
+    padding: 0 !important;
+  }
+
+  @page {
+    margin: 1.8cm 2cm 1.2cm 2cm !important;
+    /* 页边距 */
+  }
+}
+#write {
+  font-family: var(--base-Latin-font), var(--base-Chinese-font), serif;
+  font-size: var(--base-font-size);
+  /* A4标准宽度 */
+  max-width: 21cm;
+  background-color: white;
+  /* column-count: 2;
+    column-gap: 25px;
+    column-width: 8cm; 
+    display: inline-block; */
+  /* 这里可以试分栏的，但确实不适合实现 */
+}
+#write .md-math-block,
+#write .md-rawblock,
+#write p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#write p {
+  text-align: left;
+  line-height: var(--base-line-height);
+}
+#write a {
+  color: var(--link-color-light);
+}
+
+hr {
+  border-top: solid 1px #ddd;
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
+}
+
+img {
+  /* 避免图片在导出时被断开 */
+  page-break-inside: avoid;
+}
+
+strong {
+  font-weight: var(--strong-weight);
+}
+
+@media screen {
+  #write {
+    padding: var(--set-margin);
+    /* 添加一个淡蓝色的边框 */
+    /* border: 0.8px solid #AAC ; */
+    /* 页边阴影 */
+    box-shadow: 0 0 24px 12px #cccccc;
+  }
+}
+.MathJax {
+  font-size: var(--math-font-size);
+}
+
+/* typora 编写模式 */
+#typora-source {
+  font-family: var(--sourceMode-font), var(--code-font), var(--ui-font), monospace;
+  line-height: 2em;
+}
+
+/* 侧边大纲标题 */
+.sidebar-content .outline-h1 {
+  counter-reset: outline-h2;
+}
+.sidebar-content .outline-h2 {
+  counter-reset: outline-h3;
+}
+.sidebar-content .outline-h2 .outline-label:before {
+  counter-increment: outline-h2;
+  content: counter(outline-h2) " ";
+}
+.sidebar-content .outline-h3 {
+  counter-reset: outline-h4;
+}
+.sidebar-content .outline-h3 .outline-label:before {
+  counter-increment: outline-h3;
+  content: counter(outline-h2) "." counter(outline-h3) "  ";
+}
+.sidebar-content .outline-h4 {
+  counter-reset: outline-h5;
+}
+.sidebar-content .outline-h4 .outline-label:before {
+  counter-increment: outline-h4;
+  content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "  ";
+}
+.sidebar-content .outline-h5 {
+  counter-reset: outline-h6;
+}
+.sidebar-content .outline-h5 .outline-label:before {
+  counter-increment: outline-h5;
+  content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "." counter(outline-h5) "  ";
+}
+
+.sidebar-content {
+  /* 侧边栏的字体修改 */
+  font-family: var(--ui-font);
+  list-style: none;
+}
+
+/* 元数据（如 YAML front matter）的背景框 */
+pre.md-meta-block {
+  background: #cccccc;
+  padding: 1.4em;
+  font-family: var(--code-font), var(--ui-font), monospace;
+  font-size: 0.8em;
+}
+
+#write > h3.md-focus:before,
+#write > h4.md-focus:before,
+#write > h5.md-focus:before,
+#write > h6.md-focus:before,
+h3.md-focus:before,
+h4.md-focus:before,
+h5.md-focus:before,
+h6.md-focus:before {
+  color: inherit;
+  border: inherit;
+  border-radius: inherit;
+  position: inherit;
+  left: initial;
+  float: none;
+  top: initial;
+  font-size: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
+  vertical-align: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+#write {
+  counter-reset: h2 0 h3 0 h4 0 h5 0 h6 0;
+}
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+  font-weight: bold;
+  page-break-after: avoid !important;
+}
+#write h1 {
+  font-family: var(--heading-Latin-font), var(--title-Chinese-font), serif;
+  text-align: center;
+  column-span: all;
+  font-size: var(--title-font-size);
+}
+#write h2 {
+  font-family: var(--heading-Latin-font), var(--h2-Chinese-font), serif;
+  font-size: var(--h2-font-size);
+}
+#write h3 {
+  font-family: var(--heading-Latin-font), var(--h3-Chinese-font), serif;
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-font-size);
+}
+#write h4 {
+  font-family: var(--heading-Latin-font), var(--h4-Chinese-font), serif;
+  font-size: var(--h4-font-size);
+  line-height: var(--h4-font-size);
+}
+#write h5 {
+  font-family: var(--heading-Latin-font), var(--h5-Chinese-font), serif;
+  font-size: var(--h5-font-size);
+  line-height: var(--h5-font-size);
+}
+#write h6 {
+  font-family: var(--heading-Latin-font), var(--h6-Chinese-font), serif;
+  font-size: var(--h6-font-size);
+  /* 没有写错，为了避免行距太小才这么写 */
+  line-height: var(--h5-font-size);
+}
+#write h1 {
+  counter-reset: h2;
+}
+#write h2 {
+  counter-reset: h3;
+}
+#write h3 {
+  counter-reset: h4;
+}
+#write h4 {
+  counter-reset: h5;
+}
+#write h5 {
+  counter-reset: h6;
+}
+
+#write h2:before {
+  counter-increment: h2;
+  content: counter(h2);
+  margin-right: 1.2em;
+}
+
+#write h3:before, h3.md-focus.md-heading:before {
+  counter-increment: h3;
+  content: counter(h2) "." counter(h3);
+  margin-right: 1.2em;
+}
+
+#write h4:before, h4.md-focus.md-heading:before {
+  counter-increment: h4;
+  content: counter(h2) "." counter(h3) "." counter(h4);
+  margin-right: 1.2em;
+}
+
+#write h5:before, h5.md-focus.md-heading:before {
+  counter-increment: h5;
+  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5);
+  margin-right: 1.2em;
+}
+
+#write h6:before, h6.md-focus.md-heading:before {
+  counter-increment: h6;
+  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6);
+  margin-right: 1.2em;
+}
+
+/* 参考文献（脚注）块 */
+.footnotes {
+  font-size: 0.95em;
+}
+
+.footnotes-area .footnote-line {
+  color: var(--text-color);
+}
+.footnotes-area hr {
+  border: 0;
+  color: #00000000;
+}
+
+/* 无序列表 */
+ul {
+  list-style: disc;
+}
+ul ul {
+  /*list-style: circle;*/
+  /* 请勿删除“–”后的空格, 他们对缩进有一定影响, 下同 */
+  list-style: "–   ";
+}
+ul ul ul {
+  list-style: "◦  ";
+}
+
+/* 有序列表 */
+ol {
+  list-style: decimal;
+}
+ol ol {
+  counter-reset: liist;
+  list-style: none;
+}
+ol ol li {
+  counter-increment: liist;
+  position: relative;
+}
+ol ol li::before {
+  content: "(" counter(liist,lower-alpha) ")";
+  position: absolute;
+  left: -1.8em;
+}
+ol ol ol {
+  counter-reset: liiist;
+  list-style: none;
+  margin: 0;
+}
+ol ol ol li {
+  counter-increment: liiist;
+  position: relative;
+}
+ol ol ol li::before {
+  content: counter(liiist,lower-roman) ".";
+  align-self: flex-end;
+  position: absolute;
+  left: -4.5em;
+  /* -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;*/
+  /* 为了让项目编号是重新用句点对齐而不是左对齐 */
+  width: 4em;
+  text-align: right;
+}
+
+li {
+  position: relative;
+}
+
+ol, ul {
+  padding-inline-start: 2em;
+}
+
+/* task列表 */
+.md-task-list-item > input {
+  margin-top: 0.42em;
+  margin-left: -1.5em;
+  width: 1em !important;
+  height: 1em !important;
+}
+
+#write table {
+  /* 三线表第一条线宽度 */
+  border-top: 1.2pt solid;
+  /* 三线表第二条线宽度 */
+  border-bottom: 1.2pt solid;
+  font-family: var(--table-font), var(--base-Latin-font), var(--base-Chinese-font), serif;
+  /* font-size: var(--base-font-size); */
+  text-align: center;
+  page-break-inside: avoid;
+  border-spacing: 6px;
+  /* 自动布局表格宽度，如果有时内容太紧建议直接加空格吧，我自己看不惯和页面等宽的大表格 */
+  width: auto;
+  /* 使表格默认居中；虽然这个代码不好，但好像没别的实现办法 */
+  margin: 0 auto;
+}
+#write table td {
+  padding: 2px;
+}
+#write table tr {
+  padding: 2px;
+}
+table, th, td {
+  border: 1px solid black;
+  /* border-collapse: collapse; */
+  text-align: left; /* 添加这一行 */
+}
+#write th {
+  padding: 0px 6px;
+}
+#write thead {
+  /* 表格标题（首行）样式 */
+  /* 三线表表头的线 */
+  border-bottom: 0.5pt solid;
+  font-family: var(--table-title-font), var(--heading-Latin-font), var(--heading-Chinese-font), serif !important;
+  /* font-size: var(--base-font-size); */
+  font-weight: var(--strong-weight);
+}
+
+/* 一个>的引言仅为两字符缩进，使用>>的引言为传统引言样式，具有左竖线、左缩进 */
+blockquote {
+  font-style: normal;
+  font-family: var(--quote-font), var(--base-Latin-font), var(--base-Chinese-font), -apple-system, serif;
+  font-size: var(--quote-font-size);
+  /* 文字离左边框的距离 */
+  padding-left: 2em;
+  padding-right: 2em;
+  /* 左边框离页面边的距离 */
+  margin-left: 0;
+}
+
+blockquote p:first-child {
+  padding-top: 1ch;
+}
+
+blockquote p:last-child {
+  padding-bottom: 1ch;
+}
+
+blockquote blockquote {
+  border-left: 4px solid #b3b3b3;
+  padding-left: calc(2ch - 4px);
+  padding-right: 0;
+  margin-left: -4px;
+  border-radius: 0;
+}
+
+/* 行内代码 */
+code {
+  font-family: var(--code-font), var(--ui-font), monospace;
+}
+
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+p code,
+li code {
+  color: #6880a5;
+  background-color: #fefefe;
+  /* 阴影 */
+  /* box-shadow: 0 0 1px 1px #d0d3d6; */
+  font-family: var(--code-font), var(--ui-font), monospace;
+  /* box-sizing: border-box; */
+  /* border-right: 0px; */
+  /* margin: 0 2px 0 2px; */
+  /* padding: 0 2px 0 2px; */
+  /* 圆角 */
+  /* border-radius: 2px 2px 2px 2px; */
+}
+
+/* 代码块样式 */
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+
+.CodeMirror-wrap {
+  /* padding: 10px; */
+  font-size: 1em;
+}
+
+.CodeMirror-code pre {
+  font-family: var(--code-font), var(--ui-font), monospace;
+}
+
+/* 目录 */
+.md-toc {
+  font-size: var(--toc-font-size);
+}
+
+/* 目录标头样式 */
+.md-toc-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  font-family: var(--heading-Chinese-font), var(--heading-Latin-font);
+  /* 可选：添加水平分隔线 */
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+  /* 可选：居中显示 */
+  /* text-align: center; */
+  /* 显示"目录"文字 */
+  content: "目录";
+}
+
+/* 如果你想完全自定义目录标头文本 */
+.md-toc-title:before {
+  content: "目录"; /* 这里可以改为你想要的标题文字 */
+  /* 使用伪元素替换原有文本 */
+  display: block;
+}
+
+.md-toc-content {
+  margin-left: 2em;
+  /* 修复缺失上级标题时无法递增 */
+  counter-reset: toc-h2 toc-h3 toc-h4;
+  page-break-after: always;
+}
+
+.md-toc-inner {
+  margin-left: 0 !important;
+  color: var(--text-color) !important;
+}
+
+.md-toc-item {
+  color: var(--text-color) !important;
+}
+
+/* 目录标题内容属性 */
+.md-toc-h2,
+.md-toc-h3,
+.md-toc-h4,
+.md-toc-h5,
+.md-toc-h6 {
+  font-size: var(--toc-font-size);
+  font-family: var(--toc-font), var(--base-Latin-font), var(--base-Chinese-font), serif;
+}
+
+.md-toc-h2 {
+  font-weight: var(--strong-weight);
+}
+
+/* 目录标题前 */
+.md-toc-content .md-toc-h1 {
+  display: var(--toc-show-title);
+  counter-reset: toc-h2;
+}
+.md-toc-content .md-toc-h2 {
+  counter-reset: toc-h3;
+}
+.md-toc-content .md-toc-h3 {
+  counter-reset: toc-h4;
+}
+.md-toc-content .md-toc-h4 {
+  counter-reset: toc-h5;
+}
+.md-toc-content .md-toc-h5 {
+  counter-reset: toc-h6;
+}
+.md-toc-content .md-toc-h2:before {
+  counter-increment: toc-h2;
+  content: counter(toc-h2);
+  margin-right: 1em;
+  font-weight: var(--strong-weight);
+}
+.md-toc-content .md-toc-h3:before {
+  counter-increment: toc-h3;
+  content: counter(toc-h2) "." counter(toc-h3);
+  margin-left: 1.5em;
+  margin-right: 0.5em;
+}
+.md-toc-content .md-toc-h4:before {
+  counter-increment: toc-h4;
+  content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4);
+  margin-left: 3.5em;
+  margin-right: 0.5em;
+}
+.md-toc-content .md-toc-h5:before {
+  counter-increment: toc-h5;
+  content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) "." counter(toc-h5);
+  margin-left: 5.5em;
+  margin-right: 0.5em;
+}
+.md-toc-content .md-toc-h6:before {
+  counter-increment: toc-h6;
+  content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) "." counter(toc-h5) "." counter(toc-h6);
+  margin-left: 7.5em;
+  margin-right: 0.5em;
+}
+
+
+
+</style><title>lab5</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n3"><a class="md-toc-inner" href="#实验目的和背景介绍">实验目的和背景介绍</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n16"><a class="md-toc-inner" href="#实验原理">实验原理</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n17"><a class="md-toc-inner" href="#多层感知机mlp">多层感知机(MLP)</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n27"><a class="md-toc-inner" href="#卷积神经网络cnn">卷积神经网络(CNN)</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n37"><a class="md-toc-inner" href="#实验过程">实验过程</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n38"><a class="md-toc-inner" href="#mlp">MLP</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n39"><a class="md-toc-inner" href="#了解mlp模型结构">了解MLP模型结构</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n49"><a class="md-toc-inner" href="#训练和评估mlp模型">训练和评估MLP模型</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n57"><a class="md-toc-inner" href="#cnn">CNN</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n58"><a class="md-toc-inner" href="#了解cnn模型结构">了解CNN模型结构</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n70"><a class="md-toc-inner" href="#训练和评估cnn模型">训练和评估CNN模型</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n78"><a class="md-toc-inner" href="#vgg和resnet">VGG和ResNet</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n79"><a class="md-toc-inner" href="#vgg风格和resnet风格网络架构">VGG风格和ResNet风格网络架构</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n81"><a class="md-toc-inner" href="#vgg架构特点">VGG架构特点</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n87"><a class="md-toc-inner" href="#resnet架构及残差连接">ResNet架构及残差连接</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n93"><a class="md-toc-inner" href="#bottleneck结构">Bottleneck结构</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n95"><a class="md-toc-inner" href="#模型复杂度分析">模型复杂度分析</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n102"><a class="md-toc-inner" href="#代码">代码</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n103"><a class="md-toc-inner" href="#任务1补充twolayermlp代码"><strong>任务</strong>1:补充TwoLayerMLP代码</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n105"><a class="md-toc-inner" href="#任务2修改-simplecnn-代码添加一个额外的卷积层和batchnorm">任务2:修改 SimpleCNN 代码，添加一个额外的卷积层和BatchNorm</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n108"><a class="md-toc-inner" href="#实验结果和分析">实验结果和分析</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n109"><a class="md-toc-inner" href="#思考问题">思考问题</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n110"><a class="md-toc-inner" href="#思考问题1mlp在处理图像数据时面临哪些挑战"><strong>思考问题1：MLP在处理图像数据时面临哪些挑战？</strong></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n119"><a class="md-toc-inner" href="#思考问题2cnn相比mlp在处理图像时具有哪些优势解释卷积操作如何保留图像的空间信息"><strong>思考问题2：CNN相比MLP在处理图像时具有哪些优势？解释卷积操作如何保留图像的空间信息。</strong></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n126"><a class="md-toc-inner" href="#思考问题3分析bottleneck结构的优势为什么1×1卷积在深度cnn中如此重要它如何帮助控制网络的参数量和计算复杂度"><strong>思考问题3:</strong>分析Bottleneck结构的优势。为什么1×1卷积在深度CNN中如此重要？它如何帮助控制网络的参数量和计算复杂度？</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n129"><a class="md-toc-inner" href="#分析问题">分析问题</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n137"><a class="md-toc-inner" href="#mlp-2">MLP</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n144"><a class="md-toc-inner" href="#分析问题1训练simplemlp过程中损失和准确率曲线表现如何是否出现过拟合或欠拟合简要分析可能的原因"><strong>分析问题1</strong>:训练SimpleMLP过程中，损失和准确率曲线表现如何？是否出现过拟合或欠拟合？简要分析可能的原因。</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n146"><a class="md-toc-inner" href="#分析问题2对比simplemlp和deepmlp的性能增加网络深度对性能有何影响"><strong>分析问题2</strong>:对比SimpleMLP和DeepMLP的性能，增加网络深度对性能有何影响？</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n155"><a class="md-toc-inner" href="#cnn-2">CNN</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n172"><a class="md-toc-inner" href="#分析问题3卷积核可视化显示了什么模式这些模式与图像中的哪些特征可能对应"><strong>分析问题3:</strong>卷积核可视化显示了什么模式？这些模式与图像中的哪些特征可能对应？</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n174"><a class="md-toc-inner" href="#分析问题4-cnn模型相比mlp在cifar-10上的性能有何不同为什么会有这样的差异"><strong>分析问题4:</strong> CNN模型相比MLP在CIFAR-10上的性能有何不同？为什么会有这样的差异</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n176"><a class="md-toc-inner" href="#vgg和resnet-2">VGG和ResNet</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n195"><a class="md-toc-inner" href="#分析问题5">分析问题5：</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n197"><a class="md-toc-inner" href="#创新探索任务">创新探索任务</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n198"><a class="md-toc-inner" href="#迁移学习">迁移学习</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n200"><a class="md-toc-inner" href="#自监督学习">自监督学习</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n206"><a class="md-toc-inner" href="#结论和思考">结论和思考</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n208"><a class="md-toc-inner" href="#参考文献">参考文献</a></span></p></div><p>&nbsp;</p><h1 id='实验目的和背景介绍'><span>实验目的和背景介绍</span></h1><ol start='' ><li><p><span>掌握MLP和CNN的基本原理和实现方法</span></p></li><li><p><span>了解不同网络结构对模型性能的影响</span></p></li><li><p><span>学习深度学习模型训练、评估和可视化的方法</span></p></li><li><p><span>通过对比实验，理解不同模型在图像分类任务中的优缺点</span></p></li><li><p><span>培养深度学习模型调优和问题解决的能力</span></p></li></ol><p><span>本实验旨在通过对多层感知机（MLP）和卷积神经网络（CNN）的实现、训练和评估</span></p><h1 id='实验原理'><span>实验原理</span></h1><h2 id='多层感知机mlp'><span>多层感知机(MLP)</span></h2><p><span>多层感知机是一种前馈神经网络，由输入层、一个或多个隐藏层和输出层组成。 MLP的主要特点 是：</span></p><ol start='' ><li><p><span>每层神经元与下一层全连接</span></p></li><li><p><span>使用非线性激活函数（如ReLU、Sigmoid等）</span></p></li><li><p><span>通过反向传播算法进行训练</span></p></li></ol><p><strong><span>思考问题</span></strong><span>1: MLP在处理图像数据时面临哪些挑战？请从数据结构、参数量和特征提取能力三个角 度分析。</span></p><h2 id='卷积神经网络cnn'><span>卷积神经网络(CNN)</span></h2><p><span>卷积神经网络是为处理具有网格状拓扑结构的数据而设计的神经网络，主要包含卷积层、池化层 和全连接层。CNN的主要特点是：</span></p><ol start='' ><li><p><span>局部连接：每个神经元只与输入数据的一个局部区域连接</span></p></li><li><p><span>权重共享：同一特征图的所有神经元共享相同的权重</span></p></li><li><p><span>多层次特征提取：低层检测边缘等简单特征，高层组合这些特征形成更复杂的表示</span></p></li></ol><p><strong><span>思考问题</span></strong><span>2: CNN相比MLP在处理图像时具有哪些优势？解释卷积操作如何保留图像的空间信息。 </span></p><h1 id='实验过程'><span>实验过程</span></h1><h2 id='mlp'><span>MLP</span></h2><h3 id='了解mlp模型结构'><span>了解MLP模型结构</span></h3><p><span>查看 models/mlp.py 文件，理解三种MLP模型的结构：</span></p><ul><li><p><span>SimpleMLP :  单隐层MLP</span></p></li><li><p><span>DeepMLP:  多隐层MLP，带有BatchNorm和Dropout </span></p></li><li><p><span>ResidualMLP:  带有残差连接的MLP</span></p></li></ul><p><strong><span>任务</span></strong><span>1:补充TwoLayerMLP代码</span></p><h3 id='训练和评估mlp模型'><span>训练和评估MLP模型</span></h3><ol start='' ><li><p><span>在  train.ipynb   中训练SimpleMLP模型，确保将 model_type 设置为  &#39;simple_mlp &#39;  。</span></p></li><li><p><span>观察训练过程中的损失和准确率变化，以及最终在测试集上的性能。</span>
+<strong><span>分析问题1</span></strong><span>:训练过程中，损失和准确率曲线表现如何？是否出现过拟合或欠拟合？简要分析可能的原因。</span></p></li><li><p><span>修改参数尝试训练DeepMLP模型，将 model_type 设置为  &#39;deep_mlp &#39;  。</span>
+<strong><span>分析问题2</span></strong><span>:对比SimpleMLP和DeepMLP的性能，增加网络深度对性能有何影响？</span></p></li></ol><h2 id='cnn'><span>CNN</span></h2><h3 id='了解cnn模型结构'><span>了解CNN模型结构</span></h3><p><span>查看 models/cnn.py 文件，理解不同CNN模型的结构：</span></p><ul><li><p><span>SimpleCNN   : 简单的CNN，包含两个卷积层</span></p></li><li><p><span>MediumCNN   : 中等复杂度的CNN，带有BatchNorm和Dropout</span></p></li><li><p><span>VGGStyleNet   : VGG风格的CNN，使用连续的3x3卷积  </span></p></li><li><p><span>SimpleResNet   : 简化的ResNet，包含残差连接</span></p></li></ul><p><strong><span>任务2</span></strong><span>:修改 SimpleCNN 代码，添加一个额外的卷积层和BatchNorm</span></p><h3 id='训练和评估cnn模型'><span>训练和评估CNN模型</span></h3><ol start='' ><li><p><span>在  train.ipynb中训练SimpleCNN模型，确保将 model_type 设置为  &#39;simple_cnn &#39;  ，并将 use_data_augmentation  设置为 True  。</span></p></li><li><p><span>观察训练过程和卷积核可视化结果。</span>
+<strong><span>分析问题3:</span></strong><span>卷积核可视化显示了什么模式？这些模式与图像中的哪些特征可能对应？ </span></p></li><li><p><span>继续训练MediumCNN模型，将 model_type 设置为 &#39;medium_cnn &#39;  。</span>
+<strong><span>分析问题4:</span></strong><span> CNN模型相比MLP在CIFAR-10上的性能有何不同？为什么会有这样的差异？</span></p></li></ol><h2 id='vgg和resnet'><span>VGG和ResNet</span></h2><h3 id='vgg风格和resnet风格网络架构'><span>VGG风格和ResNet风格网络架构</span></h3><p><span>在本部分中，我们将探索两种影响深远的CNN架构：VGG和ResNet。通过理解这些经典架构的设 计理念和特点，可以帮助我们设计更高效的神经网络。</span></p><h4 id='vgg架构特点'><span>VGG架构特点</span></h4><ol start='' ><li><p><span>在  train.ipynb   中训练SimpleMLP模型，确保将 model_type 设置为  &#39;vgg_style &#39;  ，并将</span>
+<span>use_data_augmentation  设置为 True  。</span></p></li><li><p><span>观察网络的训练过程和性能。特别注意其收敛速度和最终准确率。</span></p></li></ol><h4 id='resnet架构及残差连接'><span>ResNet架构及残差连接</span></h4><ol start='' ><li><p><span>在  train.ipynb   中训练SimpleMLP模型，确保将 model_type 设置为  &#39;resnet &#39;  ，并将</span>
+<span>use_data_augmentation  设置为 True  。</span></p></li><li><p><span>观察网络的训练过程和性能，特别是深度对训练稳定性的影响。</span></p></li></ol><h4 id='bottleneck结构'><span>Bottleneck结构</span></h4><p><strong><span>思考问题3:</span></strong><span>分析Bottleneck结构的优势。为什么1×1卷积在深度CNN中如此重要？它如何帮助控 制网络的参数量和计算复杂度？</span>
+<strong><span>探索问题1:</span></strong><span> 查看 models/cnn.py   中的 SimpleResNet   实现，分析残差连接是如何实现的。如果输入 和输出通道数不匹配，代码是如何处理的？</span></p><h3 id='模型复杂度分析'><span>模型复杂度分析</span></h3><p><span>不同CNN架构在性能和效率之间存在权衡。现在我们将通过分析不同模型的参数量和推理时间来 理解这种权衡。</span></p><ol start='' ><li><p><span>分析各个模型的复杂度</span></p></li><li><p><span>记录并比较各个模型的参数量和推理时间。</span>
+<strong><span>分析问题5:</span></strong><span> VGG风格和ResNet风格网络的性能比较。残差连接带来了哪些优势？</span>
+<strong><span>分析问题6</span></strong><span>:参数量和推理时间如何影响模型的实用性？如何在性能和效率之间找到平衡？</span></p></li></ol><h1 id='代码'><span>代码</span></h1><h2 id='任务1补充twolayermlp代码'><strong><span>任务</span></strong><span>1:补充TwoLayerMLP代码</span></h2><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.13542px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">TwoLayerMLP</span>(<span class="cm-variable">nn</span>.<span class="cm-property">Module</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">input_dim</span><span class="cm-operator">=</span><span class="cm-number">3</span><span class="cm-operator">*</span><span class="cm-number">32</span><span class="cm-operator">*</span><span class="cm-number">32</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">super</span>(<span class="cm-variable">TwoLayerMLP</span>, <span class="cm-variable-2">self</span>).<span class="cm-property">__init__</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">flatten</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Flatten</span>() &nbsp; &nbsp; &nbsp;<span class="cm-comment">#展平，把输入的多维数据展平为一维数据</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 使用nn.Linear, nn.BatchNorm1d, nn.ReLU和nn.Dropout实现两个隐藏层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">mlp</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Sequential</span>(</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 第一个隐藏层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-variable">input_dim</span>, <span class="cm-number">128</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">BatchNorm1d</span>(<span class="cm-number">128</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">ReLU</span>(),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">Dropout</span>(<span class="cm-number">0.3</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment">#第二个隐藏层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-number">128</span>, <span class="cm-number">64</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">BatchNorm1d</span>(<span class="cm-number">64</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">ReLU</span>(),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">Dropout</span>(<span class="cm-number">0.3</span>),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-number">64</span>, <span class="cm-number">10</span>)<span class="cm-comment">#输出层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  )</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">forward</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">x</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">flatten</span>(<span class="cm-variable">x</span>) &nbsp; &nbsp; &nbsp;<span class="cm-comment">#展平，把输入的多维数据展平为一维数据</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 实现前向传播</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">mlp</span>(<span class="cm-variable">x</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">x</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 456px;"></div><div class="CodeMirror-gutters" style="display: none; height: 456px;"></div></div></div></pre><h2 id='任务2修改-simplecnn-代码添加一个额外的卷积层和batchnorm'><span>任务2:修改 SimpleCNN 代码，添加一个额外的卷积层和BatchNorm</span></h2><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.13542px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">EnhancedCNN</span>(<span class="cm-variable">nn</span>.<span class="cm-property">Module</span>):</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-builtin">super</span>(<span class="cm-variable">EnhancedCNN</span>, <span class="cm-variable-2">self</span>).<span class="cm-property">__init__</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">conv1</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Conv2d</span>(<span class="cm-number">3</span>, <span class="cm-number">16</span>, <span class="cm-variable">kernel_size</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">padding</span><span class="cm-operator">=</span><span class="cm-number">1</span>) <span class="cm-comment"># 输入3通道，输出16通道的卷积层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">conv2</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Conv2d</span>(<span class="cm-number">16</span>, <span class="cm-number">32</span>, <span class="cm-variable">kernel_size</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">padding</span><span class="cm-operator">=</span><span class="cm-number">1</span>) <span class="cm-comment"># 输入16通道，输出32通道的卷积层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 在这里添加一个新的卷积层、BatchNorm和相应的池化层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">conv3</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Conv2d</span>(<span class="cm-number">32</span>, <span class="cm-number">64</span>, <span class="cm-variable">kernel_size</span><span class="cm-operator">=</span><span class="cm-number">3</span>, <span class="cm-variable">padding</span><span class="cm-operator">=</span><span class="cm-number">1</span>)<span class="cm-comment"># 输入32通道，输出64通道的卷积层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">bn3</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">BatchNorm2d</span>(<span class="cm-number">64</span>)<span class="cm-comment"># 标准化层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">pool</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">MaxPool2d</span>(<span class="cm-number">2</span>, <span class="cm-number">2</span>) <span class="cm-comment"># 池化层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">flatten</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Flatten</span>()<span class="cm-comment"># 展平层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 修改全连接层以适应新的特征图尺寸</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc1</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-number">64</span> <span class="cm-operator">*</span> <span class="cm-number">4</span> <span class="cm-operator">*</span> <span class="cm-number">4</span>, <span class="cm-number">128</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">fc2</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">Linear</span>(<span class="cm-number">128</span>, <span class="cm-number">10</span>)<span class="cm-comment"># 输出层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">relu</span> <span class="cm-operator">=</span> <span class="cm-variable">nn</span>.<span class="cm-property">ReLU</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">forward</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">x</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 实现包含新卷积层的前向传播</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">pool</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">relu</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">conv1</span>(<span class="cm-variable">x</span>)))<span class="cm-comment"># 输出大小: 16x16x16</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">pool</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">relu</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">conv2</span>(<span class="cm-variable">x</span>)))<span class="cm-comment"># 输出大小: 8x8x32</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">pool</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">relu</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">bn3</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">conv3</span>(<span class="cm-variable">x</span>))))<span class="cm-comment"># 输出大小: 4x4x64</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">flatten</span>(<span class="cm-variable">x</span>)<span class="cm-comment"># 展平</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">relu</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">fc1</span>(<span class="cm-variable">x</span>)) <span class="cm-comment"># 全连接层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">x</span> <span class="cm-operator">=</span> <span class="cm-variable-2">self</span>.<span class="cm-property">fc2</span>(<span class="cm-variable">x</span>)<span class="cm-comment"># 输出层</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">x</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 407px;"></div><div class="CodeMirror-gutters" style="display: none; height: 407px;"></div></div></div></pre><p>&nbsp;</p><h1 id='实验结果和分析'><span>实验结果和分析</span></h1><h2 id='思考问题'><span>思考问题</span></h2><h3 id='思考问题1mlp在处理图像数据时面临哪些挑战'><strong><span>思考问题1：MLP在处理图像数据时面临哪些挑战？</span></strong></h3><p><span>答：</span></p><ol start='' ><li><p><span>数据结构层面：图像数据是二维的，像素间的关系包含空间信息。MLP接受一维向量输入，如果把输入图像展平为一维向量（例如，</span><code>3x28x28</code><span>的图像变为</span><code>2352</code><span>维向量），将会导致空间信息丢失。</span></p></li><li><p><span>参数量层面：图像具有的像素点很多，且有多个通道。如果处理</span><code>224x224</code><span>的RGB图像输入维度为</span><code>150528</code><span>，假设第一隐藏层有</span><code>1024</code><span>个神经元，则仅第一层就需要1.5亿参数（</span><code>150528x1024</code><span>），如此大的计算开销难以接受</span></p></li><li><p><span>特征提取能力层面：图像的特征通常是层次化的（低级特征→边缘→纹理→物体部件→整体物体），而MLP的全局全连接结构难以高效提取这种层次特征。</span></p></li></ol><h3 id='思考问题2cnn相比mlp在处理图像时具有哪些优势解释卷积操作如何保留图像的空间信息'><strong><span>思考问题2：CNN相比MLP在处理图像时具有哪些优势？解释卷积操作如何保留图像的空间信息。</span></strong></h3><p><span>答：</span></p><ol start='' ><li><p><span>CNN的优势：卷积神经网络（CNN）相比多层感知机（MLP）在处理图像数据时具有显著优势，主要体现在其能够有效保留空间信息并大幅减少参数量。CNN通过卷积操作在局部感受野上滑动计算，使每个卷积核仅关注图像的相邻像素（如3×3或5×5区域），从而捕捉边缘、纹理等局部特征，同时保持输出特征图的空间结构。这种局部感知机制和权重共享（同一卷积核在整个图像上复用）不仅增强了模型对平移、旋转等几何变换的鲁棒性，还极大降低了参数量——例如，一个3×3卷积核仅需9个参数，而MLP在处理高分辨率图像时需要数百万甚至数十亿的全连接参数。此外，CNN的层次化结构（如堆叠的卷积层和池化层）能自动学习从低级到高级的视觉特征（如边缘→纹理→物体部件→完整物体），而MLP由于缺乏空间归纳偏置，难以高效提取此类层次化特征。因此，CNN在图像分类、目标检测等任务中表现更优。</span></p></li><li><p><span>卷积操作：卷积操作通过局部连接、权重共享和平移不变性有效保留了图像的空间信息。卷积核（如3×3或5×5）以滑动窗口的方式在图像上局部计算，每个输出像素仅对应输入图像的特定小区域（感受野），从而维持了像素间的空间关系。这种局部感知机制使卷积能够直接捕捉边缘、纹理等空间特征，而不像MLP那样破坏图像结构。同时，权重共享让同一个卷积核在整个图像上重复使用，不仅大幅减少参数量，还保证了模型对图像不同位置出现的相同模式（如猫耳朵）具有一致的响应，即平移不变性。最终输出的特征图仍保持二维结构，使得后续网络层能继续处理空间信息，这是CNN在图像任务上优于MLP的关键原因。</span></p></li></ol><h3 id='思考问题3分析bottleneck结构的优势为什么1×1卷积在深度cnn中如此重要它如何帮助控制网络的参数量和计算复杂度'><strong><span>思考问题3:</span></strong><span>分析Bottleneck结构的优势。为什么1×1卷积在深度CNN中如此重要？它如何帮助控制网络的参数量和计算复杂度？</span></h3><p><span>答：Bottleneck通过1×1卷积实现“先压缩后扩展”，在保持网络性能的前提下显著减少计算资源消耗。在残差网络中，Bottleneck结构允许梯度直接通过1×1卷积的快捷路径传播，缓解了深度网络的梯度消失问题，同时避免了直接对高维特征进行3×3卷积的高成本操作。这种设计通过减少中间特征图的通道数（如从256维压缩到64维），大幅降低后续3×3卷积的计算量，再通过1×1卷积恢复原始通道数。</span></p><h2 id='分析问题'><span>分析问题</span></h2><div class="md-alert md-alert-warning warning"><p><span class='md-alert-text md-alert-text-warning'><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</span><br></p><ul><li><p><span>所有以下实验均在本地运行，所有device使用cuda，使用一块4080 laptop。因为是自己的电脑，所以运行环境不一定完全稳定，性能上可能有一定偏差。</span></p></li><li><p><span>未避免实验报告过于繁杂，未包含混淆矩阵，分类表格等结果的可视化，仅保留了训练曲线。</span></p></li></ul></div><h3 id='mlp-2'><span>MLP</span></h3><p><span>SimpleMLP训练曲线：</span></p><p><img src="SimpleMLP_Training_History.png" alt="11 text" style="zoom:50%;" /></p><p><span>SimpleMLP最终测试准确率：0.5114</span></p><p><span>DeepMLP训练曲线：</span></p><p><img src="DeepMLP_Training_History.png" alt="alt text" style="zoom: 50%;" /></p><p><span>DeepMLP最终测试准确率：0.5284</span></p><h4 id='分析问题1训练simplemlp过程中损失和准确率曲线表现如何是否出现过拟合或欠拟合简要分析可能的原因'><strong><span>分析问题1</span></strong><span>:训练SimpleMLP过程中，损失和准确率曲线表现如何？是否出现过拟合或欠拟合？简要分析可能的原因。</span></h4><p><span>是正常的训练表现，并且训练集和验证集表现相似，没有过拟合问题。但是训练和验证集的准确率均不高，最终测试准确率也只有0.5114，有欠拟合的问题。这主要是因为MLP处理图像数据无法捕捉空间特征，加上simpleMLP本身参数较少，结构简单，无法很好地拟合数据集。</span></p><h4 id='分析问题2对比simplemlp和deepmlp的性能增加网络深度对性能有何影响'><strong><span>分析问题2</span></strong><span>:对比SimpleMLP和DeepMLP的性能，增加网络深度对性能有何影响？</span></h4><p><span>观察DeepMLP训练曲线。增加深度后模型的训练表现并没有增加，反而有一定下降。最终测试准确率为0.5284，几乎没有提升。</span></p><p><span>模型性能对比：</span></p><ul><li><p><span>SimpleMLP：参数量: 1,578,506 每批次(128个样本)推理时间: 0.07ms 训练总时间：224s</span></p></li><li><p><span>DeepMLP: 参数量: 3,809,034 每批次(128个样本)推理时间: 0.25ms 训练总时间：801s</span></p></li></ul><p><span>两者推理时间均不长，但是deepmlp明显数倍于simplemlp。故增加网络深度会增加推理速度，同理，训练时间也会增加。</span></p><h3 id='cnn-2'><span>CNN</span></h3><p><strong><span>SimpleCNN</span></strong><span>：</span></p><ul><li><p><span>训练曲线：</span>
+<img src="D:\desktop\my_zju_course\ai_basic\lab\ai_basic\lab5.assets\image-20250505152439106.png" alt="image-20250505152439106" style="zoom:50%;" /></p></li><li><p><span>测试准确率: 0.7204</span></p></li><li><p><span>卷积核可视化：</span>
+<img src="D:\desktop\my_zju_course\ai_basic\lab\ai_basic\lab5.assets\image-20250505155023279.png" alt="image-20250505155023279" style="zoom: 33%;" /></p></li></ul><p><strong><span>MediumCNN：</span></strong></p><ul><li><p><span>训练曲线：</span>
+<img src="MediumCNN_Training_History.png" referrerpolicy="no-referrer" alt="alt text"></p></li><li><p><span>测试准确率: 0.8356</span></p></li><li><p><span>卷积可视化：</span>
+<img src="D:\desktop\my_zju_course\ai_basic\lab\ai_basic\lab5.assets\image-20250505154218684.png" alt="image-20250505154218684" style="zoom:25%;" /></p></li></ul><h4 id='分析问题3卷积核可视化显示了什么模式这些模式与图像中的哪些特征可能对应'><strong><span>分析问题3:</span></strong><span>卷积核可视化显示了什么模式？这些模式与图像中的哪些特征可能对应？</span></h4><p><span>卷积核可视化显示了每个卷积核中的权重都有区别，这表明卷积核提取了感受野中的不同特征。某些卷积核可能专注于检测特定方向的边缘（如水平、垂直或对角线）。一些卷积核可能对特定颜色或颜色组合敏感，帮助模型识别图像中的颜色模式。卷积核也可能学习到简单的纹理特征，如条纹或网格状结构。</span></p><h4 id='分析问题4-cnn模型相比mlp在cifar-10上的性能有何不同为什么会有这样的差异'><strong><span>分析问题4:</span></strong><span> CNN模型相比MLP在CIFAR-10上的性能有何不同？为什么会有这样的差异</span></h4><p><span>在CIFAR-10数据集上，CNN表现明显优于MLP，因为CNN能够有效利用图像的空间结构。卷积层通过局部连接和共享权重捕捉图像中的模式，使得模型在参数数量较少的情况下高效学习特征。此外，CNN通过多层卷积和池化层逐步提取从低级到高级的特征，能够关注局部区域并捕捉局部细节。相比之下，MLP通常将输入数据扁平化处理，忽略了图像的二维结构，且需要更多参数，这容易导致过拟合。因此，CNN在图像分类任务中具有显著优势。</span></p><h3 id='vgg和resnet-2'><span>VGG和ResNet</span></h3><p><strong><span>VGG</span></strong><span>：</span></p><ul><li><p><span>训练曲线：</span>
+<img src="VGGStyleNet_Training_History.png" referrerpolicy="no-referrer" alt="alt text"></p></li><li><p><span>测试准确率: 0.7204</span></p></li><li><p><span>卷积核可视化：</span>
+<img src="image.png" alt="alt text" style="zoom:25%;" /></p></li></ul><p><strong><span>ResNet</span></strong><span>：</span></p><ul><li><p><span>训练曲线：</span>
+<img src="SimpleResNet_Training_History.png" referrerpolicy="no-referrer"></p></li><li><p><span>测试准确率: 0.7204</span></p></li><li><p><span>卷积核可视化：</span>
+<img src="image-1.png" alt="alt text" style="zoom:25%;" /></p></li></ul><p><strong><span>复杂度对比：</span></strong></p><p>&nbsp;</p><h4 id='分析问题5'><span>分析问题5：</span></h4><p>&nbsp;</p><h1 id='创新探索任务'><span>创新探索任务</span></h1><h2 id='迁移学习'><span>迁移学习</span></h2><p>&nbsp;</p><h2 id='自监督学习'><span>自监督学习</span></h2><p><span>自监督学习指通过数据本身自动生成标签（或称“伪标签”）来训练模型，而无需依赖人工标注的数据。这一过程需要大量的数据和训练。</span></p><p><span>本实验中采用的数据还是cifar-10，输出从已知的标签改成了自己生成的旋转角度。每个图片随机旋转0 ,90, 180, 270°，生成对应的标签。我们的自监督任务是预测旋转角度。</span></p><p><span>采用simpleCNN作为backbone，把最后的fc2层的输出维度改成了4。在训练过后，理论上backbone输出的128维向量包含了图片信息，在此基础上微调应该能获得比单纯的simpleCNN训练更好的效果。因为微调是另一个bonus了，所以这里就没实现，只实现了自监督学习的部分。</span></p><p>&nbsp;</p><p>&nbsp;</p><h1 id='结论和思考'><span>结论和思考</span></h1><p>&nbsp;</p><h1 id='参考文献'><span>参考文献</span></h1></div></div>
+</body>
+</html>

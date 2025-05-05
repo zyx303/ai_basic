@@ -4,7 +4,8 @@ import torch.nn.functional as F
 from torchvision import transforms
 import numpy as np
 from .cnn import SimpleCNN
-
+# 没有分类头的CNN模型，作为backbone使用
+# 除了分类头外和cnn中的SimpleCNN完全相同
 class SimpleCNN_no_head(nn.Module):
     def __init__(self):
         super(SimpleCNN_no_head, self).__init__()
@@ -12,6 +13,7 @@ class SimpleCNN_no_head(nn.Module):
         self.conv2 = nn.Conv2d(16, 32, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 8 * 8, 128)
+        self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.pool(self.relu(self.conv1(x)))  # 输出大小: 16x16x16
@@ -24,17 +26,19 @@ class RotationNet(nn.Module):
     """基于旋转预测的自监督学习模型"""
     def __init__(self, backbone=None):
         super(RotationNet, self).__init__()
-        self.backbone = SimpleCNN_no_head()
-        self.clissifier = nn.Linear(128, 4)
+        self.backbone = SimpleCNN_no_head() 
+        self.clissifier = nn.Linear(128, 4) # 分类头，4个类别对应4种旋转
 
     
     def forward(self, x):
-        x = self.backbone(x)
-        x = self.clissifier(x)
+        # 前向传播
+        x = self.backbone(x) # 提取特征 
+        x = self.clissifier(x) # 分类头
         return x
 
 
 def generate_rotations(image):
+    # 生成旋转图像和对应的标签
     """为每张图像生成4种旋转 (0°, 90°, 180°, 270°)"""
     rotations = []
     labels = []
