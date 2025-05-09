@@ -1,3 +1,7 @@
+import warnings 
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,7 +19,7 @@ def train_model(model, train_loader, valid_loader, criterion, optimizer, schedul
     """训练模型并记录性能指标"""
     if device is None:
         device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
+    # device = 'cpu'
     start_time = time.time()
     model = model.to(device)
 
@@ -191,10 +195,10 @@ def compare_models():
     print(f"使用设备: {device}")
 
     # 加载数据
-    train_loader, valid_loader, test_loader, classes = load_cifar10(
-        use_augmentation=True,
-        batch_size=128
-    )
+    # train_loader, valid_loader, test_loader, classes = load_cifar10(
+    #     use_augmentation=True,
+    #     batch_size=128
+    # )
 
     # 定义要比较的模型
     models = {
@@ -211,45 +215,56 @@ def compare_models():
     results = {}
 
     # 训练和评估每个模型
+
+    import json
+    with open('model_results.json', 'r') as f:
+        # data = f.read()
+        results = json.load(f)
+
     for model_name, model in models.items():
-        print(f"\n开始训练 {model_name}...")
+    #     print(f"\n开始训练 {model_name}...")
 
-        # 定义损失函数和优化器
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=0.001)
-        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=15)
+    #     # 定义损失函数和优化器
+    #     criterion = nn.CrossEntropyLoss()
+    #     optimizer = optim.Adam(model.parameters(), lr=0.001)
+    #     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=15)
 
-        # 计算模型复杂度
+    #     # 计算模型复杂度
         print(f"\n分析 {model_name} 复杂度...")
         num_params, inference_time = model_complexity(model, device=device)
+        results[model_name]['params'] = num_params
+        results[model_name]['inf_time'] = inference_time
 
-        # 训练模型
-        _, history = train_model(
-            model, train_loader, valid_loader, criterion, optimizer, scheduler,
-            num_epochs=15, device=device, save_dir='./checkpoints'
-        )
+    #     # 训练模型
+    #     _, history = train_model(
+    #         model, train_loader, valid_loader, criterion, optimizer, scheduler,
+    #         num_epochs=15, device=device, save_dir='./checkpoints'
+    #     )
 
-        # 在测试集上评估模型
-        test_loss, test_acc = evaluate_model(model, test_loader, criterion, device)
+    #     # 在测试集上评估模型
+    #     test_loss, test_acc = evaluate_model(model, test_loader, criterion, device)
 
-        print(f"{model_name} 测试准确率: {test_acc:.4f}")
+    #     print(f"{model_name} 测试准确率: {test_acc:.4f}")
 
         # 存储结果
-        results[model_name] = {
-            'history': history,
-            'test_acc': test_acc,
-            'params': num_params,
-            'inf_time': inference_time
-        }
-
+        # results[model_name] = {
+        #     'history': history,
+        #     'test_acc': test_acc,
+        #     'params': num_params,
+        #     'inf_time': inference_time
+        # }
+    
     # 比较模型性能
+    # print("------------------")
+    # print(data)
+    # print("------------------")
     model_names = list(results.keys())
     test_accs = [results[name]['test_acc'] for name in model_names]
     params = [results[name]['params'] / 1e6 for name in model_names]  # 转换为百万
     inf_times = [results[name]['inf_time'] * 1000 for name in model_names]  # 转换为毫秒
 
     # 创建比较图表
-    fig, axes = plt.subplots(3, 1, figsize=(15, 15))
+    fig, axes = plt.subplots(3, 1, figsize=(5, 5))
 
     # 测试准确率比较
     ax = axes[0]
